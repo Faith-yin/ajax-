@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>06 jquery ajax get请求</title>
+  <script src="../lib/jquery-3.4.1.js"></script>
+</head>
+<body>
+  <label>你想查看成员的id：</label>
+  <input type="text" id="input">
+  <button id="btn">发送get请求</button>
+  <div id="box"></div>
+
+
+  <script>
+    $('#btn').click(function() {
+      $.ajax({
+        // get 请求传参：例如："url?id="+id
+        url: "http://localhost:3000/users/"+$('#input').val(),
+        type: "get",
+        contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+        async: true, // 请求是否异步，默认为异步
+        data: {}, // post请求参数放在此处
+        dataType: "json",
+        beforeSend: function() {
+          console.log("这是请求前的处理 - beforeSend");
+        },
+        success: function(data) {
+          console.log(data);
+        },
+        complete: function() {
+          console.log("这是请求完成的处理 - complete");
+        },
+        error: function() {
+          console.log("这是请求出错的处理 - error");
+        }
+      })
+    })
+  
+  </script>
+  
+</body>
+</html>

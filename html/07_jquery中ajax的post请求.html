@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>07 jquery ajax post 请求</title>
+  <script src="../lib/jquery-3.4.1.js"></script>
+</head>
+<body>
+    <label>你想添加的user的name：</label>
+    <input type="text" id="name"><br>
+    <label>你想添加的user的phone：</label>
+    <input type="text" id="phone"><br>
+    <label>你想添加的user的email：</label>
+    <input type="text" id="email"><br>
+    <label>你想添加的user的education：</label>
+    <input type="text" id="education"><br>
+    <label>你想添加的user的graduationSchool：</label>
+    <input type="text" id="graduationSchool"><br>
+    <label>你想添加的user的profession：</label>
+    <input type="text" id="profession"><br>
+    <label>你想添加的user的profile：</label>
+    <input type="text" id="profile"><br>
+
+    <button id="btn">发送post请求</button>
+  
+  
+    <script>
+      $('#btn').click(function() {
+        $.ajax({
+          url: "http://localhost:3000/users",
+          type: "post",
+          contentType: 'application/x-www-form-urlencoded;charset=utf-8',
+          async: true, // 请求是否异步，默认为异步
+          data: { // post 请求参数放在此处
+            "name": $('#name').val(),
+            "phone": $('#phone').val(),
+            "email": $('#email').val(),
+            "education": $('#education').val(),
+            "graduationschool": $('#graduationSchool').val(),
+            "profession": $('#profession').val(),
+            "profile": $('#profile').val(),
+          },
+          dataType: "json",
+          beforeSend: function() {
+            console.log("这是请求前的处理 - beforeSend");
+          },
+          success: function(data) {
+            console.log(data);
+          },
+          complete: function() {
+            console.log("这是请求完成的处理 - complete");
+          },
+          error: function() {
+            console.log("这是请求出错的处理 - error");
+          }
+        })
+        $('#name').val('');
+        $('#phone').val('');
+        $('#email').val('');
+        $('#education').val('');
+        $('#graduationSchool').val('');
+        $('#profession').val('');
+        $('#profile').val('');
+      })
+    
+    </script>
+  
+</body>
+</html>

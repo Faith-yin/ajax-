@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>05 携带参数post请求</title>
+</head>
+<body>
+  <input type="text" id="user">
+  <button id="btn">携带参数发送post请求</button>
+
+
+  <script>
+    document.getElementById('btn').onclick = function() {
+      var user = document.getElementById('user').value;
+      // 1、创建ajax对象 (浏览器兼容性判断)
+      var xhr = '';
+      if(window.XMLHttpRequest) {
+        // 主流浏览器 (谷歌，火狐，欧朋，苹果，IE7+，其他浏览器)
+        xhr = new XMLHttpRequest();
+      }else {
+        // 低版本IE浏览器 IE6-
+        xhr = new ActiveXObject("Msxml2.XMLHTTP");
+      }
+      // 2、设置回调函数
+      xhr.onload = function() {
+        if(this.readyState == 4 && this.status == 200) {
+          console.log(this.responseText);
+        }
+      }
+      // 3、设置请求方式和请求地址
+      xhr.open('POST', '../data/userPost.php', true);
+      // 4、设置请求头参数 xhr.setRequestHeader
+      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      // 5、发送请求
+      xhr.send("user=" + user);
+
+    }
+  
+  </script>
+  
+  
+</body>
+</html>

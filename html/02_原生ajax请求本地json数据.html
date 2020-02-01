@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>02 请求本地json数据</title>
+</head>
+<body>
+  <button id="btn">请求本地json数据</button>
+  <br><br>
+  <div id="text"></div>
+
+
+  <script>
+    document.getElementById('btn').addEventListener("click", loadUsers);
+
+    function loadUsers() {
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '../data/users.json', true);
+
+      xhr.onload = function() {
+        if(this.readyState == 4 && this.status == 200) {
+          // JSON.parse() 方法将数据转换为 JavaScript 对象
+          // JSON.stringify() 方法将 JavaScript 对象转换为字符串
+          var users = JSON.parse(this.responseText);
+          var output = '';
+          // 遍历数组
+          for(let i in users) {
+            output += `
+              <ul>
+                <li>id: ${users[i].id}</li>
+                <li>name: ${users[i].name}</li>
+                <li>age: ${users[i].age}</li>
+              </ul>`
+          }
+          document.getElementById('text').innerHTML = output;
+        }
+      }
+      
+      xhr.send();
+    }
+  
+  </script>
+  
+</body>
+</html>
